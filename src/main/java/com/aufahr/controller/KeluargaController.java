@@ -57,8 +57,14 @@ public class KeluargaController {
     @GetMapping("/ubah/{nkk}")
     public String keluargaEditPage(Model model, @PathVariable(value = "nkk", required = true) String nkk) {
         KeluargaEntity keluargaEntity = keluargaService.findByNomorKk(nkk);
+        if(keluargaEntity == null){
+            model.addAttribute("message", "Keluarga Tidak ditemukan");
+            model.addAttribute("detail", "Penduduk dengan NKK " +nkk+" Tidak ditemukan");
+            return "content/common/defaultMessage";
+        }
         model.addAttribute("keluarga", keluargaEntity);
         List<KelurahanEntity> kelurahans = kelurahanService.getAll();
+
         Collections.sort(kelurahans, new Comparator<KelurahanEntity>() {
             @Override
             public int compare(KelurahanEntity o1, KelurahanEntity o2) {
@@ -102,7 +108,7 @@ public class KeluargaController {
             String oldNkk = persistObject.getNomorKk();
             createOrSaveKeluarga(persistObject, true);
             model.addAttribute("message", "Pengubahan data keluarga berhasil");
-            model.addAttribute("detail", "Penduduk dengan NIK " + oldNkk + " dan id berhasil diubah");
+            model.addAttribute("detail", "Penduduk dengan NKK " + oldNkk + " dan id berhasil diubah");
         } catch (Exception e) {
             model.addAttribute("message", "Terjadi Kesalahan dalam menambah keluarga");
             model.addAttribute("detail", e.toString());

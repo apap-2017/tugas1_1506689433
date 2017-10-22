@@ -17,13 +17,9 @@
         <li th:text="'Kecamatan :   ' + ${keluarga.kelurahanByIdKelurahan.kecamatanByIdKecamatan.namaKecamatan}"></li>
         <li th:text="'Kota      :   ' + ${keluarga.kelurahanByIdKelurahan.kecamatanByIdKecamatan.kotaByIdKota.namaKota}"></li>
     </ul>
-    <form th:action="@{/keluarga/ubah/}+${keluarga.nomorKk}" method="get">
-        <div class="form-group">
-            <div class="form-group">
-                <button type="submit" class="btn btn-default pull-right">Ubah</button>
-            </div>
-        </div>
-    </form>
+    <br/>
+    <a th:href="@{/keluarga/ubah/} + ${keluarga.nomorKk}" class="btn pull-right">Ubah</a>
+    <br/>
     <table id="pendudukTable" style="margin-top: 4rem;">
         <thead>
         <tr>
@@ -58,6 +54,7 @@
         </th:block>
         </tbody>
     </table>
+
 </div>
 </body>
 </html>
