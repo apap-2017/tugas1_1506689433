@@ -23,7 +23,7 @@
     <br/>
     <a th:href="@{/penduduk/ubah/} + ${penduduk.nik}" class="btn pull-right">Ubah</a>
     <br/>
-    <form method="post" th:action="@{/penduduk/mati/}">
+    <form style="margin-top: 3rem"  method="post" th:action="@{/penduduk/mati/}">
         <input type="hidden" th:value="${penduduk.nik}" name="nik"></input>
         <button type="submit" class="btn btn-default pull-right">Jadikan Wafat</button>
     </form>

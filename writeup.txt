@@ -9,25 +9,28 @@ General steps on creating this project:
 8. Create more features
 
 DB Optimization
- Default indexing by adding PK (somehow not exist on seed DB) -> Huge improvements in performance
- ALL FK and relations are created properly -> data integrity
+-Default indexing by adding PK (somehow not exist on seed DB) -> Huge improvements in performance
+-ALL FK and relations are created properly -> data integrity
 
 Additional features
- Some extra shortcut to some pages, like add and edit page
- Validation -> since FK constraint are properly determined + some additional constraint
- Using selectJs to help searching on select boxes
+    Application features
+     Some extra shortcut to some pages, like add and edit page (on keluargaDetail and pendudukDetail)
+     Validation -> since FK constraint are properly determined + some additional constraint
+     Using selectJs to help searching on select boxes
+     SelectJS for select boxes -> easier selection on select input :)
 
-Code Features
- Generic and extendable impl on almost all code levels (all generic CRUD queries etc are done, and extendable)
-    JPARepository pattern -> one step REST API creation, etc. (read on SPRING repository Rest for example)
- UI based on layouting by using thymeleaf layout dialect -> so much better, hierarchical based template -> increase readability and code experience
+    Code Features
+     Generic and extendable impl on almost all code levels (all generic CRUD queries etc are done, and extendable)
+        JPARepository pattern -> one step REST API creation, etc. (read on SPRING repository Rest for example)
+     UI based on layouting by using thymeleaf layout dialect -> so much better, hierarchical based template -> increase readability and code experience
 
 Stress testing
  Somehow i'm running out of time.. so No :p (3 weeks in less than a day is a bad idea anyways)
 
 MVC and package implementation
- Cool things to note :)
+ Cool things to highlight :)
 - All implementation are build based on future minded design
+    - Nice Example, Look at JPARepository based DAO, and GenericService that maximize the use of OOP paradigm
 - DAO using proper Spring repository pattern, instead of what usually APAP basic impl suggests
 
 Package and structures:
@@ -39,13 +42,14 @@ Package and structures:
 
 MVC Implementation
 --Model :
-    - Based on JPAEntity (Hibernate Impl)
+    - Based on JPA(Java persistence API) Entity (Hibernate Impl)
 --View
-    - Thymeleaf and thymeleaf template dialect
+    - Using thymeleaf and thymeleaf template dialect
+        - Nicely based on hierarchical templating
 --Controller
     - Per domain controller and route mapping based on each contoller's class domain
 
-i dont think i need to go into explainning what MVC is, can easily llok it up on goole :)
+i dont think i need to go into explaining what MVC is, can easily look it up on goole :)
 
 Topic that can be discussed or debated :
 
@@ -53,14 +57,14 @@ Should i use DAO (Repository) while using JPA for this porject?
 - Easily, No it's quite repetitive.
 - But again, for more complex project it's usually great to put some logic, abstraction and limitation with this pattern.
 
-
 Why the UI is so Bad?
--Not a UI guy, usually creating REST API is what i do. (this impl can easily turned into REST API easily using Spinrg Repository)
+-Not a UI guy, usually creating REST API is what i do.
+    (this impl can easily turned into REST API easily using Spring Repository, again have mentioned it before)
 
 To sum it up:
-Steps           : above text already quite summed up
-Stress testing  : no
-DB optimization : some, but with huge impacts!
-MVC             : as normal MVC impl using spring as it can be
-What worth/can be considered as a bonus point:
--look at additional features
+    Steps           : above text already quite summed up
+    Stress testing  : no
+    DB optimization : some, but with huge impacts!
+    MVC             : as normal MVC impl using spring as it can be
+    What worth/can be considered as a bonus point:
+    -look at additional features
