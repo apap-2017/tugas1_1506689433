@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/defaultLayout">
+<head>
+    <title th:text="'Lihat Data Penduduk - ' + ${penduduk.nik} ">Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}"></h3>
+    <ul>
+        <li th:text="'Nama              : ' + ${penduduk.nama}"></li>
+        <li th:text="'Tempat Lahir      : ' + ${penduduk.tempatLahir}"></li>
+        <li th:text="'Tanggal Lahir     : ' + ${penduduk.tanggalLahir}"></li>
+        <li th:text="'Jenis Kelamin     : ' + ${penduduk.jenisKelamin}"></li>
+        <li th:text="'Kewarganegaraan   : ' + (${penduduk.isWni == 1} ? 'WNI' : 'WNA')"></li>
+        <li th:text="'Pekerjaan         : ' + ${penduduk.pekerjaan}"></li>
+        <li th:text="'Status Perkawinan : ' + ${penduduk.statusPerkawinan}"></li>
+        <li th:text="'Status Keluarga   : ' + ${penduduk.statusDalamKeluarga}"></li>
+        <li th:text="'Golongan Darah    : ' + ${penduduk.golonganDarah}"></li>
+        <li th:text="'Wafat             : ' + (${penduduk.isWafat == 1} ? 'Ya' : 'Belum')"></li>
+    </ul>
+    <form method="post" th:action="@{/penduduk/mati/}">
+        <input type="hidden" th:value="${penduduk.nik}" name="nik"></input>
+        <button type="submit" class="btn btn-default pull-right">Jadikan Wafat</button>
+    </form>
+</div>
+
+</body>
+</html>

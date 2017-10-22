@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/defaultLayout">
+<head>
+    <title th:text="'Tambah Data Penduduk'">Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 style="margin-bottom: 0.5rem" th:text="'Tambah Data penduduk'"></h3>
+    <form action="#" th:action="@{/penduduk/tambah/}" th:object="${penduduk}" method="post">
+        <div class="form-group">
+            <label>Nama</label>
+            <input type="text" class="form-control" th:field="*{nama}"></input>
+        </div>
+        <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <input type="text" class="form-control" th:field="*{jenisKelamin}"></input>
+        </div>
+        <div class="form-group">
+            <label>Tempat Lahir</label>
+            <input type="text" class="form-control" th:field="*{tempatLahir}"></input>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input type="date" class="form-control" th:field="*{tanggalLahir}"></input>
+        </div>
+        <!--TODO change this-->
+        <div class="form-group">
+            <label>Golongan Darah</label>
+            <input type="text" class="form-control" th:field="*{golonganDarah}"></input>
+        </div>
+        <div class="form-group">
+            <label>Agama</label>
+            <input type="text" class="form-control" th:field="*{agama}"></input>
+        </div>
+        <div class="form-group">
+            <label>Pekerjaan</label>
+            <input type="text" class="form-control" th:field="*{pekerjaan}"></input>
+        </div>
+        <div class="form-group">
+            <label>Status Perkawinan</label>
+            <input type="text" class="form-control" th:field="*{statusPerkawinan}"></input>
+        </div>
+        <div class="form-group">
+            <label>Status dalam Keluarga</label>
+            <input type="text" class="form-control" th:field="*{statusDalamKeluarga}"></input>
+        </div>
+        <!--TODO change this -->
+        <div class="form-group">
+            <label>Merupakan WNI</label>
+            <input type="checkbox" class="form-check" th:field="*{isWni}" value="1"></input>
+        </div>
+        <div class="form-group">
+            <label>Nomor KK</label>
+            <input type="text" class="form-control" name="nomorKK"></input>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default pull-right">Submit</button>
+        </div>
+
+        <!--TODO golongan darah (select)-->
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/defaultLayout">
+<head>
+    <title th:text="'Tambah Data Keluargak'">Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 style="margin-bottom: 0.5rem" th:text="'Tambah Data keluarga'"></h3>
+    <form action="#" th:action="@{/keluarga/tambah/}" th:object="${keluarga}" method="post">
+        <div class="form-group">
+            <label>Alamat</label>
+            <input type="text" class="form-control" th:field="*{alamat}"></input>
+        </div>
+        <div class="form-group">
+            <label>RT</label>
+            <input type="text" class="form-control" th:field="*{rt}"></input>
+        </div>
+        <div class="form-group">
+            <label>RW</label>
+            <input type="text" class="form-control" th:field="*{rw}"></input>
+        </div>
+        <div class="form-group">
+            <label>Kelurahan</label>
+            <select th:field="*{kelurahanByIdKelurahan}" class="form-control">
+                <option th:field="*{kelurahanByIdKelurahan}" th:each="kelurahan : ${kelurahans}" th:value="${kelurahan.id}" th:text="${kelurahan.namaKelurahan}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input class="button" type="submit"><button type="submit" class="btn btn-default pull-right">Submit</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

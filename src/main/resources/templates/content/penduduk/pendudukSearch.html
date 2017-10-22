@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/defaultLayout">
+<head>
+    <title th:text="'Cari Penduduk'">Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 style="margin-bottom: 0.5rem" th:text="'Cari Penduduk'"></h3>
+    <div th:if="${penduduks == null}">
+        <form th:action="@{/penduduk/cari}" method="get">
+            <div class="form-group">
+                <section th:if="${selectedKota == null}">
+                    <label>Kota</label>
+                    <select class="form-control" name="kt">
+                        <option th:each="kota : ${kotas}" th:value="${kota.id}"
+                                th:text="${kota.namaKota}"></option>
+                    </select>
+                    <br></br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default pull-right">Cari</button>
+                    </div>
+                </section>
+            </div>
+
+            <section th:if="${kecamatans != null}">
+                <div class="form-group">
+                    <label>Kota</label>
+                    <select class="form-control" name="kt" disabled="true">
+                        <option th:value="${selectedKota.id}" th:text="${selectedKota.namaKota}"></option>
+                    </select>
+                    <input type="hidden" name="kt" th:value="${selectedKota.id}"/>
+                </div>
+                <div class="form-group">
+                    <label>Kecamatan</label>
+                    <select class="form-control" name="kc">
+                        <option th:each="kecamatan : ${kecamatans}" th:value="${kecamatan.id}"
+                                th:text="${kecamatan.namaKecamatan}"></option>
+                    </select>
+                </div>
+                <br></br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right">Cari</button>
+                </div>
+
+            </section>
+            <section th:if="${selectedKecamatan!=null}">
+                <div class="form-group">
+                    <label>Kota</label>
+                    <select class="form-control" name="kt" disabled="true">
+                        <option th:value="${selectedKota.id}" th:text="${selectedKota.namaKota}"></option>
+                    </select>
+                    <input type="hidden" name="kt" th:value="${selectedKota.id}"/>
+                </div>
+                <div class="form-group">
+                    <label>Kecamatan</label>
+                    <select class="form-control" name="kc" disabled="true">
+                        <option th:value="${selectedKecamatan.id}"
+                                th:text="${selectedKecamatan.namaKecamatan}"></option>
+                    </select>
+                    <input type="hidden" name="kc" th:value="${selectedKecamatan.id}"/>
+                </div>
+                <div class="form-group">
+                    <label>Kelurahan</label>
+                    <select class="form-control" name="kl">
+                        <option th:each="kelurahan : ${kelurahans}" th:value="${kelurahan.id}"
+                                th:text="${kelurahan.namaKelurahan}"></option>
+                    </select>
+                </div>
+                <br></br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right">Cari</button>
+                </div>
+            </section>
+        </form>
+    </div>
+    <div th:if="${penduduks!=null}">
+        <table id="pendudukTable">
+            <thead>
+            <tr>
+                <th>Nama</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Tempat Lahir</th>
+                <th>Tanggal Lahir</th>
+                <th>Agama</th>
+                <th>Pekerjaan</th>
+                <th>Status Perkawinan</th>
+                <th>Status dalam Keluarga</th>
+                <th>Golongan Darah</th>
+                <th>Kewarganegaraan</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="penduduk : ${penduduks}">
+                <tr>
+                    <td th:text="${penduduk.nama}"></td>
+                    <td th:text="${penduduk.nik}"></td>
+                    <td th:text="${penduduk.jenisKelamin == 0} ? 'Pria' : 'Perempuan'"></td>
+                    <td th:text="${penduduk.tempatLahir}"></td>
+                    <td th:text="${penduduk.tanggalLahir}"></td>
+                    <td th:text="${penduduk.agama}"></td>
+                    <td th:text="${penduduk.pekerjaan}"></td>
+                    <td th:text="${penduduk.statusPerkawinan}"></td>
+                    <td th:text="${penduduk.statusDalamKeluarga}"></td>
+                    <td th:text="${penduduk.golonganDarah}"></td>
+                    <td th:text="${penduduk.isWni == 1} ? 'WNI' : 'WNA'"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
