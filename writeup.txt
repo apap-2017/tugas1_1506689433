@@ -1,0 +1,66 @@
+General steps on creating this project:
+1. Read Spring boot and JPA documentation (never use spring before)
+2. init repo and DB
+3. use IntelliJ IDEA JPA Entity Generation to generate all entity based on DB
+4. Create generic Services and Repository
+5. Impl Controller and basic logic + Extending generic service as needed
+6. impl UI
+7. Testing and fixes
+8. Create more features
+
+DB Optimization
+ Default indexing by adding PK (somehow not exist on seed DB) -> Huge improvements in performance
+ ALL FK and relations are created properly -> data integrity
+
+Additional features
+ Some extra shortcut to some pages, like add and edit page
+ Validation -> since FK constraint are properly determined + some additional constraint
+ Using selectJs to help searching on select boxes
+
+Code Features
+ Generic and extendable impl on almost all code levels (all generic CRUD queries etc are done, and extendable)
+    JPARepository pattern -> one step REST API creation, etc. (read on SPRING repository Rest for example)
+ UI based on layouting by using thymeleaf layout dialect -> so much better, hierarchical based template -> increase readability and code experience
+
+Stress testing
+ Somehow i'm running out of time.. so No :p (3 weeks in less than a day is a bad idea anyways)
+
+MVC and package implementation
+ Cool things to note :)
+- All implementation are build based on future minded design
+- DAO using proper Spring repository pattern, instead of what usually APAP basic impl suggests
+
+Package and structures:
+- Simply put, you can see it by yourself, it's really is quite tidy
+    - Package and directories are mostly based on it's purpose
+        -Common includes generic and common resources like util and config
+        - all others are quite generic as named
+
+
+MVC Implementation
+--Model :
+    - Based on JPAEntity (Hibernate Impl)
+--View
+    - Thymeleaf and thymeleaf template dialect
+--Controller
+    - Per domain controller and route mapping based on each contoller's class domain
+
+i dont think i need to go into explainning what MVC is, can easily llok it up on goole :)
+
+Topic that can be discussed or debated :
+
+Should i use DAO (Repository) while using JPA for this porject?
+- Easily, No it's quite repetitive.
+- But again, for more complex project it's usually great to put some logic, abstraction and limitation with this pattern.
+
+
+Why the UI is so Bad?
+-Not a UI guy, usually creating REST API is what i do. (this impl can easily turned into REST API easily using Spinrg Repository)
+
+To sum it up:
+Steps           : above text already quite summed up
+Stress testing  : no
+DB optimization : some, but with huge impacts!
+MVC             : as normal MVC impl using spring as it can be
+What worth/can be considered as a bonus point:
+-look at additional features
