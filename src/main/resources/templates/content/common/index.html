@@ -9,7 +9,8 @@
 <div layout:fragment="content">
     <h1 style="margin-bottom: 4rem">Sistem Informasi kependudukan Online DKI Jakarta </h1>
 
-    <h2> Cari Penduduk</h2>
+    <h2> Penduduk</h2>
+    <a th:href="@{/penduduk/tambah}" class="btn pull-right"> Tambah Penduduk</a>
     <form th:action="@{/penduduk}" method="get">
         <div class="form-group">
             <div class="form-group">
@@ -17,12 +18,13 @@
                 <input type="text" class="form-control" name="nik"></input>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                <button type="submit" class="btn btn-default pull-right">Cari</button>
             </div>
         </div>
     </form>
     <br/>
-    <h2> Cari Keluarga</h2>
+    <h2>Keluarga</h2>
+    <a th:href="@{/keluarga/tambah}" class="btn pull-right"> Tambah Keluarga</a>
     <form th:action="@{/keluarga}" method="get">
         <div class="form-group">
             <div class="form-group">
@@ -30,9 +32,8 @@
                 <input type="text" class="form-control" name="nkk"></input>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default pull-right">Submit</button>
+                <button type="submit" class="btn btn-default pull-right">Cari</button>
             </div>
-
         </div>
     </form>
 </div>

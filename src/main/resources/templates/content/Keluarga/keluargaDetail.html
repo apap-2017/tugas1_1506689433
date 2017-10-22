@@ -17,7 +17,14 @@
         <li th:text="'Kecamatan :   ' + ${keluarga.kelurahanByIdKelurahan.kecamatanByIdKecamatan.namaKecamatan}"></li>
         <li th:text="'Kota      :   ' + ${keluarga.kelurahanByIdKelurahan.kecamatanByIdKecamatan.kotaByIdKota.namaKota}"></li>
     </ul>
-    <table id="pendudukTable">
+    <form th:action="@{/keluarga/ubah/}+${keluarga.nomorKk}" method="get">
+        <div class="form-group">
+            <div class="form-group">
+                <button type="submit" class="btn btn-default pull-right">Ubah</button>
+            </div>
+        </div>
+    </form>
+    <table id="pendudukTable" style="margin-top: 4rem;">
         <thead>
         <tr>
             <th>Nama</th>
@@ -38,7 +45,7 @@
             <tr>
                 <td th:text="${penduduk.nama}"></td>
                 <td th:text="${penduduk.nik}"></td>
-                <td th:text="${penduduk.jenisKelamin}"></td>
+                <td th:text="${penduduk.jenisKelamin == 0} ? 'Pria' : 'Perempuan'"></td>
                 <td th:text="${penduduk.tempatLahir}"></td>
                 <td th:text="${penduduk.tanggalLahir}"></td>
                 <td th:text="${penduduk.agama}"></td>
@@ -46,13 +53,11 @@
                 <td th:text="${penduduk.statusPerkawinan}"></td>
                 <td th:text="${penduduk.statusDalamKeluarga}"></td>
                 <td th:text="${penduduk.golonganDarah}"></td>
-                <!--TODO change this -->
-                <td th:text="${penduduk.isWni}"></td>
+                <td th:text="${penduduk.isWni == 1} ? 'WNI' : 'WNA'"></td>
             </tr>
         </th:block>
         </tbody>
     </table>
-
 </div>
 </body>
 </html>

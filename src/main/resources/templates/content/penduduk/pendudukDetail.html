@@ -12,7 +12,7 @@
         <li th:text="'Nama              : ' + ${penduduk.nama}"></li>
         <li th:text="'Tempat Lahir      : ' + ${penduduk.tempatLahir}"></li>
         <li th:text="'Tanggal Lahir     : ' + ${penduduk.tanggalLahir}"></li>
-        <li th:text="'Jenis Kelamin     : ' + ${penduduk.jenisKelamin}"></li>
+        <li th:text="'Jenis Kelamin     : ' + (${penduduk.jenisKelamin == 1}? 'Wanita' : 'Pria')"></li>
         <li th:text="'Kewarganegaraan   : ' + (${penduduk.isWni == 1} ? 'WNI' : 'WNA')"></li>
         <li th:text="'Pekerjaan         : ' + ${penduduk.pekerjaan}"></li>
         <li th:text="'Status Perkawinan : ' + ${penduduk.statusPerkawinan}"></li>

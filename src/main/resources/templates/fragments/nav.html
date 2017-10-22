@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="navbar">
+    <section class="container">
+        <a class="navbar-brand" href="#">SiDuk DKI Online</a>
+        <a class="navbar-text" th:href="@{/}">Home</a>
+        <a class="navbar-text" th:href="@{/penduduk/cari}">Cari</a>
+    </section>
 </div>
 </body>
 </html>
