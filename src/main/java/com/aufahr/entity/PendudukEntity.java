@@ -10,6 +10,7 @@ import java.sql.Date;
 @Table(name = "penduduk", schema = "apaptugas1")
 public class PendudukEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private String nik;
     private String nama;

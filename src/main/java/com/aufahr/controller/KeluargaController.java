@@ -72,7 +72,9 @@ public class KeluargaController {
             return "content/keluarga/keluargaCreate";
         }
         try {
-            String nkk = createOrSaveKeluarga(keluargaEntity, false);
+            KeluargaEntity newKeluarga = new KeluargaEntity();
+            newKeluarga.updateFromObject(keluargaEntity);
+            String nkk = createOrSaveKeluarga(newKeluarga, false);
             model.addAttribute("message", "Penambahan keluarga berhasil");
             model.addAttribute("detail", "Keluarga dengan NKK " + nkk + " berhasil ditambahkan");
         } catch (Exception e) {

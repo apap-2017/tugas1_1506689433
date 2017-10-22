@@ -69,7 +69,7 @@ public class PendudukController {
                 });
                 model.addAttribute("selectedKota", selectedKota);
                 model.addAttribute("kecamatans", kecamatans);
-            }else if(kl == null){
+            } else if (kl == null) {
                 KotaEntity selectedKota = kotaService.get(Long.parseLong(kt));
                 KecamatanEntity kecamatanEntity = kecamatanService.get(Long.parseLong(kc));
                 List<KelurahanEntity> kelurahans = new ArrayList<>(kecamatanEntity.getKelurahansById());
@@ -82,7 +82,7 @@ public class PendudukController {
                 model.addAttribute("selectedKota", selectedKota);
                 model.addAttribute("selectedKecamatan", kecamatanEntity);
                 model.addAttribute("kelurahans", kelurahans);
-            }else{
+            } else {
                 KelurahanEntity kelurahanEntity = kelurahanService.get(Long.parseLong(kl));
                 List<KeluargaEntity> keluargaEntities = new ArrayList<>(kelurahanEntity.getKeluargasById());
                 List<PendudukEntity> pendudukEntities = new ArrayList<>();
@@ -115,6 +115,11 @@ public class PendudukController {
     @GetMapping("/ubah/{nik}")
     public String pendudukEditPage(Model model, @PathVariable(value = "nik", required = true) String nik) {
         PendudukEntity pendudukEntity = pendudukService.findByNik(nik);
+        if (pendudukEntity == null) {
+            model.addAttribute("message", "Penduduk tidak ditemukan");
+            model.addAttribute("detail", "Penduduk dengan NIK " + nik + " tidak ditemukan");
+            return "content/common/defaultMessage";
+        }
         model.addAttribute("penduduk", pendudukEntity);
         return "content/penduduk/pendudukEdit";
     }
@@ -127,7 +132,9 @@ public class PendudukController {
             return "content/penduduk/pendudukCreate";
         }
         try {
-            String nik = createOrSavePenduduk(nomorKK, pendudukEntity, false);
+            PendudukEntity newPenduduk = new PendudukEntity();
+            newPenduduk.updateFromObject(pendudukEntity);
+            String nik = createOrSavePenduduk(nomorKK, newPenduduk, false);
             model.addAttribute("message", "Penambahan penduduk berhasil");
             model.addAttribute("detail", "Penduduk dengan NIK " + nik + " berhasil ditambahkan");
         } catch (Exception e) {
@@ -207,7 +214,11 @@ public class PendudukController {
         String dateString = df.format(date);
         result += dateString;
 
-        Long num = pendudukService.getMaxId() + 1;
+        Long num = 0L;
+        if (pendudukService.getMaxId() != null) {
+            num = pendudukService.getMaxId();
+        }
+        num = num++;
         if (persistNum) {
             num = pendudukEntity.getId();
         }
