@@ -38,7 +38,7 @@ public class KeluargaController {
     public String keluargaCreatePage(Model model) {
         KeluargaEntity keluargaEntity = new KeluargaEntity();
         model.addAttribute("keluarga", keluargaEntity);
-        List<KelurahanEntity> kelurahans  = kelurahanService.getAll();
+        List<KelurahanEntity> kelurahans = kelurahanService.getAll();
         Collections.sort(kelurahans, new Comparator<KelurahanEntity>() {
             @Override
             public int compare(KelurahanEntity o1, KelurahanEntity o2) {
@@ -53,7 +53,7 @@ public class KeluargaController {
     public String keluargaEditPage(Model model, @PathVariable(value = "nkk", required = true) String nkk) {
         KeluargaEntity keluargaEntity = keluargaService.findByNomorKk(nkk);
         model.addAttribute("keluarga", keluargaEntity);
-        List<KelurahanEntity> kelurahans  = kelurahanService.getAll();
+        List<KelurahanEntity> kelurahans = kelurahanService.getAll();
         Collections.sort(kelurahans, new Comparator<KelurahanEntity>() {
             @Override
             public int compare(KelurahanEntity o1, KelurahanEntity o2) {
@@ -61,12 +61,12 @@ public class KeluargaController {
             }
         });
         model.addAttribute("kelurahans", kelurahans);
-        return "content/keluarga/keluargaCreate";
+        return "content/keluarga/keluargaEdit";
     }
 
 
     @PostMapping("/tambah")
-    public String KeluargaCreateSubmit( Model model, KeluargaEntity keluargaEntity,
+    public String KeluargaCreateSubmit(Model model, KeluargaEntity keluargaEntity,
                                        BindingResult bindingResult, ModelMap modelMap) {
         if (bindingResult.hasErrors()) {
             return "content/keluarga/keluargaCreate";
@@ -80,7 +80,7 @@ public class KeluargaController {
         } catch (Exception e) {
             model.addAttribute("message", "Terjadi Kesalahan dalam menambah keluarga");
             model.addAttribute("detail", e.toString());
-        }finally {
+        } finally {
             return "content/common/defaultMessage";
         }
 
@@ -90,7 +90,7 @@ public class KeluargaController {
     public String keluargaEditSubmit(Model model, KeluargaEntity keluargaEntity,
                                      BindingResult bindingResult, ModelMap modelMap) {
         if (bindingResult.hasErrors()) {
-            return "content/keluarga/keluargaCreate";
+            return "content/keluarga/keluargaEdit";
         }
         try {
             KeluargaEntity persistObject = keluargaService.get(keluargaEntity.getId());
@@ -102,7 +102,7 @@ public class KeluargaController {
         } catch (Exception e) {
             model.addAttribute("message", "Terjadi Kesalahan dalam menambah keluarga");
             model.addAttribute("detail", e.toString());
-        }finally {
+        } finally {
             return "content/common/defaultMessage";
         }
     }
@@ -117,21 +117,28 @@ public class KeluargaController {
     private String generateNKK(KeluargaEntity keluargaEntity, boolean persistNum) {
         String result = "";
         KelurahanEntity kelurahanEntity = keluargaEntity.getKelurahanByIdKelurahan();
-        KecamatanEntity kecamatanEntity =  kelurahanEntity.getKecamatanByIdKecamatan();
+        KecamatanEntity kecamatanEntity = kelurahanEntity.getKecamatanByIdKecamatan();
         KotaEntity kotaEntity = kecamatanEntity.getKotaByIdKota();
         Date currentDate = new Date();
-        result+=kotaEntity.getKodeKota();
-        result+=kotaEntity.getKodeKota();
+        //TODO ask, in seed db kecamatan code also contains kota code
+//        result += kotaEntity.getKodeKota();
+        result += kecamatanEntity.getKodeKecamatan();
         DateFormat df = new SimpleDateFormat("ddmmyy");
         String dateString = df.format(currentDate);
-        result+= dateString;
+        result += dateString;
 //        TODO this should be persisted?, what if kelurahan of keluarga changes(?)
-        int num = keluargaService.getNumberOfSameDatedAndSameLocationKeluarga(kelurahanEntity, currentDate) + 1;
-        String numString = String.format("%04d", num);
-        if(persistNum && keluargaEntity.getNomorKk() != null){
-            numString = keluargaEntity.getNomorKk().substring(keluargaEntity.getNomorKk().length()-4);
+        int c = 0;
+        try {
+            c = keluargaService.getNumberOfSameDatedAndSameLocationKeluarga(kelurahanEntity, currentDate);
+        } catch (Exception e) {
+            //old datas might have no creation date -> fix seed datas
         }
-        result+= num;
+        int num = c+1;
+        String numString = String.format("%04d", num);
+        if (persistNum && keluargaEntity.getNomorKk() != null) {
+            numString = keluargaEntity.getNomorKk().substring(keluargaEntity.getNomorKk().length() - 4);
+        }
+        result += num;
         return result;
     }
 }

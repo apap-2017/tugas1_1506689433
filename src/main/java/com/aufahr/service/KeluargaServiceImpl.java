@@ -39,8 +39,12 @@ public class KeluargaServiceImpl extends GenericServiceImpl<KeluargaEntity, Long
         List<KeluargaEntity> keluargas = new ArrayList<>(kelurahanEntity.getKeluargasById());
         int num = 0;
         for (KeluargaEntity k: keluargas) {
-            if(k.getCreated().equals(date)){
-                num = num++;
+            try{
+                if(k.getCreated().equals(date)){
+                    num = num++;
+                }
+            }catch (Exception e){
+
             }
         }
 
