@@ -30,6 +30,11 @@ public class KeluargaController {
     @GetMapping("")
     public String keluargaDetail(Model model, @RequestParam(value = "nkk", required = true) String nkk) {
         KeluargaEntity keluargaEntity = keluargaService.findByNomorKk(nkk);
+        if(keluargaEntity == null){
+            model.addAttribute("message", "Keluarga Tidak ditemukan");
+            model.addAttribute("detail", "Penduduk dengan NKK " +nkk+" Tidak ditemukan");
+            return "content/common/defaultMessage";
+        }
         model.addAttribute("keluarga", keluargaEntity);
         return "content/keluarga/keluargaDetail";
     }
@@ -80,9 +85,8 @@ public class KeluargaController {
         } catch (Exception e) {
             model.addAttribute("message", "Terjadi Kesalahan dalam menambah keluarga");
             model.addAttribute("detail", e.toString());
-        } finally {
-            return "content/common/defaultMessage";
         }
+        return "content/common/defaultMessage";
 
     }
 
@@ -102,9 +106,8 @@ public class KeluargaController {
         } catch (Exception e) {
             model.addAttribute("message", "Terjadi Kesalahan dalam menambah keluarga");
             model.addAttribute("detail", e.toString());
-        } finally {
-            return "content/common/defaultMessage";
         }
+        return "content/common/defaultMessage";
     }
 
     private String createOrSaveKeluarga(KeluargaEntity keluargaEntity, boolean persistNum) throws Exception {

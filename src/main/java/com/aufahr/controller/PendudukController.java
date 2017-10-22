@@ -39,6 +39,11 @@ public class PendudukController {
     @GetMapping("")
     public String pendudukNikDetail(Model model, @RequestParam(value = "nik", required = true) String nik) {
         PendudukEntity pendudukEntity = pendudukService.findByNik(nik);
+        if(pendudukEntity == null){
+            model.addAttribute("message", "Penduduk Tidak ditemukan");
+            model.addAttribute("detail", "Penduduk dengan NIK " +nik+" Tidak ditemukan");
+            return "content/common/defaultMessage";
+        }
         model.addAttribute("penduduk", pendudukEntity);
         return "content/penduduk/pendudukDetail";
     }
