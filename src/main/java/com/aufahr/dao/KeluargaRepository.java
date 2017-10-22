@@ -16,6 +16,4 @@ import java.util.List;
 @Transactional
 public interface KeluargaRepository extends JpaRepository<KeluargaEntity, Long> {
     KeluargaEntity findByNomorKk(String nomorKk);
-
-//    List<KeluargaEntity> findAllByCreatedAndKelurahanByIdKelurahan(Date created, KelurahanEntity kelurahanEntity);
 }

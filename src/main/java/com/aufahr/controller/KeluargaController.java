@@ -66,13 +66,13 @@ public class KeluargaController {
 
 
     @PostMapping("/tambah")
-    public String KeluargaCreateSubmit(@RequestParam(value = "idKelurahan", required = true) String idKelurahan, Model model, KeluargaEntity keluargaEntity,
+    public String KeluargaCreateSubmit( Model model, KeluargaEntity keluargaEntity,
                                        BindingResult bindingResult, ModelMap modelMap) {
         if (bindingResult.hasErrors()) {
             return "content/keluarga/keluargaCreate";
         }
         try {
-            String nkk = createOrSaveKeluarga(keluargaEntity, idKelurahan, false);
+            String nkk = createOrSaveKeluarga(keluargaEntity, false);
             model.addAttribute("message", "Penambahan keluarga berhasil");
             model.addAttribute("detail", "Keluarga dengan NKK " + nkk + " berhasil ditambahkan");
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class KeluargaController {
     }
 
     @PostMapping("/ubah")
-    public String keluargaEditSubmit(@RequestParam(value = "idKelurahan", required = true) String idKelurahan, Model model, KeluargaEntity keluargaEntity,
+    public String keluargaEditSubmit(Model model, KeluargaEntity keluargaEntity,
                                      BindingResult bindingResult, ModelMap modelMap) {
         if (bindingResult.hasErrors()) {
             return "content/keluarga/keluargaCreate";
@@ -94,7 +94,7 @@ public class KeluargaController {
             KeluargaEntity persistObject = keluargaService.get(keluargaEntity.getId());
             persistObject.updateFromObject(keluargaEntity);
             String oldNkk = persistObject.getNomorKk();
-            createOrSaveKeluarga(persistObject, idKelurahan, true);
+            createOrSaveKeluarga(persistObject, true);
             model.addAttribute("message", "Pengubahan data keluarga berhasil");
             model.addAttribute("detail", "Penduduk dengan NIK " + oldNkk + " dan id berhasil diubah");
         } catch (Exception e) {
@@ -105,11 +105,7 @@ public class KeluargaController {
         }
     }
 
-    private String createOrSaveKeluarga(KeluargaEntity keluargaEntity, String idKelurahan, boolean persistNum) throws Exception {
-        KelurahanEntity kelurahanEntity = kelurahanService.get(Long.parseLong(idKelurahan));
-        if(kelurahanEntity == null){
-            throw new Exception("Kelurahan with id " +idKelurahan + " is not found");
-        }
+    private String createOrSaveKeluarga(KeluargaEntity keluargaEntity, boolean persistNum) throws Exception {
         String nkk = generateNKK(keluargaEntity, persistNum);
         keluargaEntity.setNomorKk(nkk);
         keluargaService.add(keluargaEntity);
@@ -128,8 +124,7 @@ public class KeluargaController {
         String dateString = df.format(currentDate);
         result+= dateString;
 //        TODO this should be persisted?, what if kelurahan of keluarga changes(?)
-
-        int num = keluargaService.findAllByCreatedAndKelurahanByIdKelurahan((java.sql.Date) currentDate, kelurahanEntity).size() + 1;
+        int num = keluargaService.getNumberOfSameDatedAndSameLocationKeluarga(kelurahanEntity, currentDate) + 1;
         String numString = String.format("%04d", num);
         if(persistNum && keluargaEntity.getNomorKk() != null){
             numString = keluargaEntity.getNomorKk().substring(keluargaEntity.getNomorKk().length()-4);

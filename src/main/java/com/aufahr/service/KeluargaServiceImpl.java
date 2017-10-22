@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +35,15 @@ public class KeluargaServiceImpl extends GenericServiceImpl<KeluargaEntity, Long
     }
 
     @Override
-    public List<KeluargaEntity> findAllByCreatedAndKelurahanByIdKelurahan(Date created, KelurahanEntity kelurahanEntity) {
-        return null;
+    public int getNumberOfSameDatedAndSameLocationKeluarga(KelurahanEntity kelurahanEntity, Date date) {
+        List<KeluargaEntity> keluargas = new ArrayList<>(kelurahanEntity.getKeluargasById());
+        int num = 0;
+        for (KeluargaEntity k: keluargas) {
+            if(k.getCreated().equals(date)){
+                num = num++;
+            }
+        }
+
+        return num;
     }
 }

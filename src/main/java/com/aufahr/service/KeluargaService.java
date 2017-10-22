@@ -3,7 +3,8 @@ package com.aufahr.service;
 import com.aufahr.entity.KeluargaEntity;
 import com.aufahr.entity.KelurahanEntity;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
 public interface KeluargaService extends GenericService<KeluargaEntity,Long> {
     KeluargaEntity findByNomorKk(String nomorKk);
 
-    List<KeluargaEntity> findAllByCreatedAndKelurahanByIdKelurahan(Date created, KelurahanEntity kelurahanEntity);
+    int getNumberOfSameDatedAndSameLocationKeluarga(KelurahanEntity kelurahanEntity, Date date);
 }
